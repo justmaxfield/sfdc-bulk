@@ -93,9 +93,8 @@ class SalesforceBulkAPI(object):
 
     def df_chunks(self, df):
         chunks = list()
-        n_chunks = len(df) // self.batch_size + 1
-        for i in range(n_chunks):
-            chunks.append(df.loc[i*self.batch_size:(i+1)*self.batch_size,:])
+        for i in range(0,len(df), self.batch_size):
+            chunks.append(df.loc[i : i + (self.batch_size - 1), : ])
         return chunks
 
     # some methods for monitoring jobs
